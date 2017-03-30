@@ -1,0 +1,101 @@
+pipeline {
+    agent any
+    tools {
+        maven 'M3'
+        jdk 'JDK'
+    }
+    stages {
+        stage ('Initialize') {
+            steps {
+                bat '''
+                    echo "PATH = %PATH%"
+                    echo "M2_HOME = %M2_HOME%"
+                '''
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                bat 'mvn -f pom.xml -Dmaven.test.failure.ignore=true install' 
+            }
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
+            }
+        }
+        
+        stage ('StaticCheck') {
+            steps {
+                bat 'mvn -f pom.xml sonar:sonar' 
+            }
+        }
+        
+        stage ('Test') {
+            steps {
+                bat 'echo hello' 
+            }
+        }
+        
+        stage ('Build Docker Image') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Secure Scan Docker Image') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Publish to docker registry') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Create Dev Kubernetes Cluster') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Deploy Image To Dev Cluster') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Run Dev Test') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Create Test Kubernetes Cluster') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Deploy Image To Test Cluster') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Run Acceptance Test') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+        stage ('Deploy Image To Production') {
+            steps {
+                bat 'echo building docker image' 
+            }
+        }
+        
+    }
+}
