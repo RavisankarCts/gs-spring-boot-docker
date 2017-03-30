@@ -16,7 +16,7 @@ pipeline {
 
         stage ('Build') {
             steps {
-                bat 'mvn -f initial/pom.xml -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn -f initial/pom.xml -Dmaven.test.failure.ignore=true install' 
             }
            
         }
